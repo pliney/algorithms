@@ -1,5 +1,20 @@
-import Tkinter as tk
+""" Author: Michael Chambliss
+    Algorithms Assignment #2
+    Word Tree
 
+Created on python 2.7
+
+Can be run with a command line argument to specify a file of words to load
+Ex: python word_tree.py wordfile.txt
+
+The file should be in the current directory or an absolute path should be specified"""
+
+import Tkinter as tk
+import sys
+import os.path
+
+"""A tree data structure that contains several functions for adding words to the tree and searching
+for words contained in the tree"""
 class word_tree:
     def __init__(self):
         self.root = node()
@@ -15,7 +30,6 @@ class word_tree:
             word = word.lower()
             self.add_word(word.strip())
         file.close()
-        print('finished')
 
     """A function for counting the # of words in the tree
     Returns: the number of words in tree"""
@@ -46,6 +60,10 @@ class word_tree:
         self.root.word_search(word_fragment, num_words, word_list)
         return word_list
 
+"""A node object for a tree data structure. Each node contains a dictionary of children, there is no
+specified number of children for each node. New children are added to the dictionary as needed. Each
+node also contains a word variable, if it is not equal to None then the path through the tree spells out
+the string in the word variable."""
 class node:
 
     def __init__(self):
@@ -89,9 +107,11 @@ class node:
 
     """Recursive function for searching for words in the tree
     Args:
-        word_fragment: the remaining part of search string, at each node the first char is removed from string
+        word_fragment: the remaining part of search string, at each node the first char is
+                       removed from string
         num_words: the number of words to find before halting search
-        word_list: a list of words found by the search, one list object is shared between all recursive calls"""
+        word_list: a list of words found by the search, one list object is shared between
+                   all recursive calls"""
     def word_search(self, word_fragment, num_words, word_list):
         #if enough words have already been found then return
         if len(word_list) >= num_words:
@@ -131,8 +151,6 @@ def gui_init(word_tree):
     L1.grid(column=0,row=0)
     entry.grid(column=0,row=1)
     word_list_box.grid(column=0,row=2)
-    word_list_box.insert('end', 'someword')
-    word_list_box.insert('end', 'anotherword')
 
     #continuiously updates the search results and changes the display
     def update_search():
@@ -147,14 +165,21 @@ def gui_init(word_tree):
 
     root.mainloop()
 
-
-
-if __name__ == "__main__":
+def main(filename='words.txt'):
     print('Loading dictionary please wait...')
     tree = word_tree()
-    tree.add_file_to_tree('words.txt')
-    gui_init(tree)
+    if os.path.isfile(filename):
+        tree.add_file_to_tree(filename)
+        gui_init(tree)
+    else:
+        print(filename + ' was not found in current directory, please rerun program with a command line\n'
+                         'argument specifying a text file of words.')
 
+if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        main(sys.argv[1])
+    else:
+        main()
 
 
 
