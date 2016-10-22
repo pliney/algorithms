@@ -12,7 +12,7 @@ def gen_array():
     for i in range(0, columns):
         column = []
         for j in range(0, rows):
-            column.append(random.randint(0,100))
+            column.append(random.randint(0,1000))
         column_list.append(column)
     return column_list
 
@@ -129,20 +129,21 @@ def test_functions():
 def group_sort():
     global matrix
     matrix = gen_array()
-    print_array(matrix)
+
     sort_columns()
     matrix = transpose()
     sort_columns()
     matrix = untranspose()
     sort_columns()
     matrix = slide()
-    print_array(matrix)
     sort_columns()
-    print_array(matrix)
     matrix = unslide()
+
     print_array(matrix)
 
 if __name__ == '__main__':
+    rows = 36
+    columns = 6
     # test_functions()
     group_sort()
 
