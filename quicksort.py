@@ -115,7 +115,7 @@ def swap(array, i, j):
     array[i] = array[j]
     array[j] = temp
 
-def gen_array(num_range = 100000, size = 100000):
+def gen_array(num_range = 100000, size = 120000):
     a = []
     for i in range(0, size):
         a.append(int(rnd() * num_range))
@@ -130,7 +130,8 @@ def time_trial(sort_function, trials = 10, **kwargs):
     for i in range(0, trials):
         a = gen_array()
         t1 = tm()
-        sort_function(a, **kwargs)
+        a.sort()
+        # sort_function(a, **kwargs)
         t2 = tm()
         totalTime += (t2-t1)
     print("avg time = %f  insertion sort size = "% (totalTime / trials)) #kwargs['max_size']))
@@ -141,17 +142,17 @@ def time_trial(sort_function, trials = 10, **kwargs):
 def main():
     # time_trial(quick_sort)
 
-    print('lumuto')
-
-    time_trial(quick_sort, max_size=0, part_func=lomuto_partition)
-    time_trial(quick_sort, max_size=7, part_func=lomuto_partition)
-    # #
-    print('med3 hoare')
-    time_trial(quick_sort, max_size=0, part_func=hoare_partition_med3)
-    time_trial(quick_sort, max_size=7, part_func=hoare_partition_med3)
-    print('hoare')
-    time_trial(quick_sort, max_size=0, part_func=hoare_partition)
-    time_trial(quick_sort, max_size=7, part_func=hoare_partition)
+    # print('lumuto')
+    #
+    # time_trial(quick_sort, max_size=0, part_func=lomuto_partition)
+    # time_trial(quick_sort, max_size=7, part_func=lomuto_partition)
+    # # #
+    # print('med3 hoare')
+    # time_trial(quick_sort, max_size=0, part_func=hoare_partition_med3)
+    # time_trial(quick_sort, max_size=7, part_func=hoare_partition_med3)
+    # print('hoare')
+    # time_trial(quick_sort, max_size=0, part_func=hoare_partition)
+    # time_trial(quick_sort, max_size=7, part_func=hoare_partition)
     print('pythonsort')
     time_trial(list.sort)
 
