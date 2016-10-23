@@ -1,5 +1,6 @@
 import random
 from pprint import pprint as pp
+from time import time as tm
 
 
 matrix = []
@@ -12,7 +13,7 @@ def gen_array():
     for i in range(0, columns):
         column = []
         for j in range(0, rows):
-            column.append(random.randint(0,1000))
+            column.append(random.randint(0,100))
         column_list.append(column)
     return column_list
 
@@ -128,8 +129,7 @@ def test_functions():
 
 def group_sort():
     global matrix
-    matrix = gen_array()
-
+    t1 = tm()
     sort_columns()
     matrix = transpose()
     sort_columns()
@@ -138,13 +138,25 @@ def group_sort():
     matrix = slide()
     sort_columns()
     matrix = unslide()
-
-    print_array(matrix)
+    t2 = tm()
+    # print_array(matrix)
+    return t2 - t1
 
 if __name__ == '__main__':
-    rows = 36
-    columns = 6
-    # test_functions()
-    group_sort()
+    rows =600
+    columns = 200
+    # # global matrix
+    # matrix = gen_array()
+    # # print_array(matrix)
+    # # test_functions()
+    # time = group_sort()
+    # print_array(matrix)
+    # print('time: %f' % time)
+
+    for i in range(0, 3):
+        matrix = gen_array()
+        time = group_sort()
+        print('time: %f' % time)
+
 
 
