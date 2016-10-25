@@ -3,6 +3,7 @@ from random import uniform as rfg_r
 from random import randint as rng
 import math
 
+
 '''************************Compute Pi funciton *******************************'''
 def compute_pi(num_points=100000):
     hits_inside = 0
@@ -17,6 +18,8 @@ def compute_pi(num_points=100000):
 
     pi = 4 * float(hits_inside) / num_points
     print('pi guess: %f' %pi)
+
+
 ''' ********************* Random array search functions **********************'''
 def rand_array_search_trial():
     trials = 10000
@@ -78,7 +81,7 @@ def gen_non_prime(prime_range):
     return rng(2, prime_range) * rng(2, prime_range)
 
 
-'''Monte Carlo Integration'''
+'''*******************Monte Carlo Integration*************************'''
 
 
 def find_rectangle_range(function, domain=(-10, 10)):
@@ -158,6 +161,7 @@ def rand_test():
     print('took %d trials' %i)
 
 if __name__ == '__main__':
+    rand_test()
     # '''Computing Pi'''
     # for i in range(1,12):
     #     print('darts = 10^%d' %i)
@@ -171,4 +175,4 @@ if __name__ == '__main__':
     # prime_test_loop(divisors_to_try=1000, trials=10000,prime_range = 10000)
 
     '''Monte Carlo'''
-    (monte_carlo_trial(f=lambda x: ((x-3)*(x+1)*(x-1)), num_points=50000, domain=(-2, 2)))
+    # (monte_carlo_trial(f=lambda x: ((x-3)*(x+1)*(x-1)), num_points=50000, domain=(-2, 2)))
