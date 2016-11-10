@@ -152,27 +152,27 @@ def monte_carlo_trial(trials=20, **kwargs):
 
 def rand_test():
     i = 0
-    while True:
-        x = rfg()
-        if x == 0 or x == 1:
-            print x
-            break
+    hits = [0]*20
+    while i < 10000000:
+        hits[rng(0, 19)] += 1
+        i += 1
+    print(hits)
 
-    print('took %d trials' %i)
+    # print('took %d trials' %i)
 
 if __name__ == '__main__':
-    rand_test()
-    # '''Computing Pi'''
-    # for i in range(1,12):
-    #     print('darts = 10^%d' %i)
-    #     compute_pi(num_points=10**i)
-
-    '''Random array search'''
+    # rand_test()
+    '''Computing Pi'''
+    for i in range(1,8):
+        print('darts = %d' % (10**i))
+        compute_pi(num_points=10**i)
+    #
+    # '''Random array search'''
     # rand_test()
     # rand_array_search_trial()
-
-    '''Prime exclusion test'''
+    #
+    # '''Prime exclusion test'''
     # prime_test_loop(divisors_to_try=1000, trials=10000,prime_range = 10000)
-
-    '''Monte Carlo'''
+    #
+    # '''Monte Carlo'''
     # (monte_carlo_trial(f=lambda x: ((x-3)*(x+1)*(x-1)), num_points=50000, domain=(-2, 2)))
