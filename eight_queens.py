@@ -6,7 +6,7 @@ class board:
     def __init__(self):
         self.board = []
         self.queen_list = []
-        self.board_size = 14 #must be even number
+        self.board_size = 26 #must be even number
         self.init_board()
 
     def init_board(self):
@@ -94,13 +94,26 @@ if __name__ == '__main__':
     # print(chess_board.check_legal_queen(0, 7))
     # print(chess_board.check_legal_queen(3, 3))
     # print(chess_board.check_legal_queen(7, 3))
-    bt1 = time()
-    chess_board.back_tracking_alg(2)
-    bt2 = time()
+    timelist = []
+    for i in range(0, 14):
+        bt1 = time()
+        chess_board.back_tracking_alg(i)
+        bt2 = time()
+        timelist.append(bt2-bt1)
+
+    for i in range(0, 1):
+        print("Backtracking algorithm for start pos %d took %f ms to find solution" % (i, timelist[i] * 1000))
     # pp(chess_board.board)
-    rt1 = time()
-    chess_board.back_tracking_rand_start(3)
-    rt2 = time()
-    print("Backtracking algorithm took %f ms to find solution" % ((bt2 - bt1) * 1000))
-    print("Random start algorithm took %f ms to find solution" % ((rt2 - rt1) * 1000))
+    print('Avg = %f' % (1000 * sum(timelist, 0) / 14))
+    print
+    timelist = []
+
+    for i in range(0, 6):
+        rt1 = time()
+        chess_board.back_tracking_rand_start(i)
+        rt2 = time()
+        timelist.append(rt2-rt1)
+    for i in range(0, 6):
+        print("Random start algorithm for N queens %d took %f ms to find solution" % (i, timelist[i] * 1000))
+    print('Avg = %f' % (1000*sum(timelist,0)/60))
     # pp(chess_board.board)
