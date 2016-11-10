@@ -1,6 +1,7 @@
 from random import random as rfg
 from random import uniform as rfg_r
 from random import randint as rng
+from time import time
 import math
 
 
@@ -22,7 +23,7 @@ def compute_pi(num_points=100000):
 
 ''' ********************* Random array search functions **********************'''
 def rand_array_search_trial():
-    trials = 10000
+    trials = 1000
     max_guesses = 5000
 
     total_guesses = 0
@@ -40,7 +41,7 @@ def rand_array_search_trial():
 
 def rand_array_search(max_guesses):
     size = 1000
-    array_range = 100000
+    array_range = 10000000
     a = []
     for i in range(0, size):
         a.append(rng(0, array_range))
@@ -137,42 +138,47 @@ def monte_carlo_mean(f=lambda x: x**2, domain=(-10, 10), num_points=10000):
 
     return mean * domain_width
 
+
 def monte_carlo_trial(trials=20, **kwargs):
     dart_total = 0
+    totaltime = 0
     for i in range(0,trials):
+        t1 = time()
         dart_total += monte_carlo_darts(**kwargs)
+        t2 = time()
+        totaltime += (t2-t1)
 
     print('Monte carlo dart result: %f' % (float(dart_total)/trials))
+    print('Avg time: %f' % (totaltime/trials))
 
     mean_total = 0
+    totaltime = 0
     for i in range(0,trials):
+        t1 = time()
         mean_total += monte_carlo_mean(**kwargs)
+        t2 = time()
+        totaltime += (t2 - t1)
 
     print('Monte carlo mean result: %f' % (float(mean_total) / trials))
+    print('Avg time: %f' % (totaltime / trials))
 
-def rand_test():
-    i = 0
-    while True:
-        x = rfg()
-        if x == 0 or x == 1:
-            print x
-            break
-
-    print('took %d trials' %i)
 
 if __name__ == '__main__':
-    rand_test()
-    # '''Computing Pi'''
+    '''Computing Pi'''
     # for i in range(1,12):
     #     print('darts = 10^%d' %i)
-    #     compute_pi(num_points=10**i)
+    #     points = 10**i
+    #     compute_pi(num_points=points)
 
     '''Random array search'''
-    # rand_test()
     # rand_array_search_trial()
 
     '''Prime exclusion test'''
-    # prime_test_loop(divisors_to_try=1000, trials=10000,prime_range = 10000)
+    # prime_test_loop(divisors_to_try=1000, trials=1000,prime_range = 100000)
 
     '''Monte Carlo'''
-    # (monte_carlo_trial(f=lambda x: ((x-3)*(x+1)*(x-1)), num_points=50000, domain=(-2, 2)))
+    (monte_carlo_trial(f=lambda x: ((x-3)*(x+1)*(x-1)), num_points=50000, domain=(-2, 2)))
+    (monte_carlo_trial(f=lambda x: ((x - 3) * (x + 1) * (x - 1)), num_points=50000, domain=(-3, 3)))
+    (monte_carlo_trial(f=lambda x: (x**3), num_points=50000, domain=(0, 5)))
+    (monte_carlo_trial(f=lambda x: (math.cosh(x)), num_points=50000, domain=(0, 5)))
+    (monte_carlo_trial(f=lambda x: (x*(x+2) * (x + 1)*(x-.5) * (x - 1)*(x+.5)), num_points=50000, domain=(-2, 3)))
